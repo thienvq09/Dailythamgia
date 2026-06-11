@@ -130,7 +130,7 @@ function App() {
             color: "#ffffff",
             textTransform: "uppercase",
             letterSpacing: "1px",
-            marginTop: "70px",
+            marginTop: "90px",
             marginBottom: "40px",
 
             textShadow: `
@@ -155,7 +155,7 @@ function App() {
             border: "6px solid #66b3ff",
             boxShadow: "0 0 20px rgba(0,0,0,0.15)",
 
-            transform: "translateY(50px)",
+            transform: "translateY(60px)",
           }}
         >
           <table
