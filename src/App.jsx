@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import bg2 from "./assets/nen-moi.jpg.png";
 
 const SHEET_ID = "1-cLAxym0HtBYNT9RkwJW6vuDbLGfVjU2QhWhGIDcJqA";
 const SHEET_NAME = "Data 1";
@@ -8,7 +9,6 @@ function App() {
   const [filters, setFilters] = useState({
     name: "",
     address: "",
-    phone: "",
     city: "",
     facebook: "",
   });
@@ -40,9 +40,7 @@ function App() {
       (shop["Địa Chỉ"] || "")
         .toLowerCase()
         .includes(filters.address.toLowerCase()) &&
-      (shop["SĐT"] || "")
-        .toLowerCase()
-        .includes(filters.phone.toLowerCase()) &&
+      
       (filters.city === "" || shop["Tỉnh Thành"] === filters.city) &&
       (shop["link Facebook"] || "")
         .toLowerCase()
@@ -73,7 +71,7 @@ function App() {
           justifyContent: "center",
           alignItems: "center",
           position: "relative",
-        }}
+        }} 
       >
         <div
           style={{
@@ -114,43 +112,116 @@ function App() {
       <section
         id="shop-list"
         style={{
-          minHeight: "100vh",
-          padding: "60px",
-          background: "#111",
+          height: "110vh",
+          padding: "30px",
+          backgroundImage: `url(${bg2})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          overflow: "hidden",
         }}
       >
         <h2
           style={{
-            textAlign: "center",
-            fontSize: "48px",
-            color: "white",
+            textAlign: "left",
+            fontSize: "50px",
+            fontWeight: "900",
+            
+            color: "#ffffff",
+            textTransform: "uppercase",
+            letterSpacing: "1px",
+            marginTop: "70px",
             marginBottom: "40px",
+
+            textShadow: `
+              0 0 2px #0d47a1,
+              2px 2px 0 #0d47a1,
+              -2px 2px 0 #0d47a1,
+              2px -2px 0 #0d47a1,
+              -2px -2px 0 #0d47a1,
+              8px 8px 10px rgba(0,0,0,0.4)
+            `,
           }}
         >
-          Danh sách cửa hàng
+          DANH SÁCH ĐẠI SỨ CHIẾN DỊCH TRÊN TOÀN QUỐC
         </h2>
 
-        <div style={{ overflowX: "auto" }}>
+        <div
+          style={{
+            overflow: "auto",
+            maxHeight: "70vh",
+            background: "rgba(255,255,255,0.85)",
+            borderRadius: "20px",
+            border: "6px solid #66b3ff",
+            boxShadow: "0 0 20px rgba(0,0,0,0.15)",
+
+            transform: "translateY(50px)",
+          }}
+        >
           <table
             style={{
               width: "100%",
               borderCollapse: "collapse",
-              background: "rgba(255,255,255,0.08)",
-              color: "white",
+              background: "white",
+              color: "#333",
             }}
           >
             <thead>
               <tr>
-                <th style={thStyle}>Tên Shop</th>
-                <th style={thStyle}>Địa Chỉ</th>
-                <th style={thStyle}>SĐT</th>
-                <th style={thStyle}>Tỉnh Thành</th>
-                <th style={thStyle}>Facebook</th>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 20,
+                  }}
+                >
+                  Tên Shop
+                </th>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 20,
+                  }}
+                >
+                  Địa Chỉ
+                </th>
+                
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 20,
+                  }}
+                >
+                  Tỉnh Thành
+                </th>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 20,
+                  }}
+                >
+                  Facebook
+                </th>
               </tr>
 
               {/* FILTER ROW */}
               <tr>
-                <th style={thStyle}>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 42,
+                    zIndex: 19,
+                    background: "rgb(13, 110, 253)",
+                  }}
+                >
                   <input
                     type="text"
                     placeholder="Lọc tên shop"
@@ -161,8 +232,15 @@ function App() {
                     style={inputStyle}
                   />
                 </th>
-
-                <th style={thStyle}>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 42,
+                    zIndex: 19,
+                    background: "rgb(13, 110, 253)",
+                  }}
+                >
                   <input
                     type="text"
                     placeholder="Lọc địa chỉ"
@@ -174,19 +252,17 @@ function App() {
                   />
                 </th>
 
-                <th style={thStyle}>
-                  <input
-                    type="text"
-                    placeholder="Lọc SĐT"
-                    value={filters.phone}
-                    onChange={(e) =>
-                      setFilters({ ...filters, phone: e.target.value })
-                    }
-                    style={inputStyle}
-                  />
-                </th>
-
-                <th style={thStyle}>
+                
+        
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 42,
+                    zIndex: 19,
+                    background: "rgb(13, 110, 253)",
+                  }}
+                >
                   <select
                     value={filters.city}
                     onChange={(e) =>
@@ -203,7 +279,15 @@ function App() {
                   </select>
                 </th>
 
-                <th style={thStyle}>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 42,
+                    zIndex: 19,
+                    background: "rgb(13, 110, 253)",
+                  }}
+                >
                   <input
                     type="text"
                     placeholder="Lọc Facebook"
@@ -222,14 +306,16 @@ function App() {
                 <tr key={i}>
                   <td style={tdStyle}>{shop["Tên Shop"]}</td>
                   <td style={tdStyle}>{shop["Địa Chỉ"]}</td>
-                  <td style={tdStyle}>{shop["SĐT"]}</td>
                   <td style={tdStyle}>{shop["Tỉnh Thành"]}</td>
                   <td style={tdStyle}>
                     <a
                       href={shop["link Facebook"]}
                       target="_blank"
                       rel="noreferrer"
-                      style={{ color: "#4da6ff" }}
+                      style={{
+                        color: "#0d6efd",
+                        fontWeight: "500",
+                      }}
                     >
                       Facebook
                     </a>
@@ -245,20 +331,30 @@ function App() {
 }
 
 const thStyle = {
-  padding: "12px",
-  border: "1px solid rgba(255,255,255,0.2)",
+  padding: "14px",
+  border: "1px solid #fdfdfd",
+  background: "#0d6efd",
+  color: "white",
+  fontWeight: "700",
+  fontSize: "20px",
 };
 
 const tdStyle = {
-  padding: "12px",
-  border: "1px solid rgba(255,255,255,0.15)",
+  padding: "16px",
+  border: "1px solid #d9e8f7",
+  background: "rgba(255,255,255,0.92)",
+  color: "#222",
+  fontSize: "20px",
+  fontWeight: "600",
 };
 
 const inputStyle = {
   width: "100%",
-  padding: "8px",
+  padding: "10px",
   borderRadius: "6px",
-  border: "none",
+  border: "1px solid #c8dff5",
+  background: "#ffffff",
+  color: "#333",
 };
 
 export default App;
