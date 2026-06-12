@@ -2,3 +2,24 @@
   max-width: 1280px;
   margin: 0 auto;
 }
+@keyframes flyAround {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  25% {
+    transform: translate(-80px, -40px) rotate(-10deg);
+  }
+
+  50% {
+    transform: translate(-40px, -100px) rotate(5deg);
+  }
+
+  75% {
+    transform: translate(60px, -60px) rotate(10deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
