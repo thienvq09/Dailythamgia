@@ -166,29 +166,14 @@ function App() {
               color: "#333",
             }}
           >
+            <colgroup>
+              <col style={{ width: "15%" }} />
+              <col style={{ width: "45%" }} />
+              <col style={{ width: "30%" }} />
+              <col style={{ width: "10%" }} />
+            </colgroup>
             <thead>
               <tr>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 20,
-                  }}
-                >
-                  Tên Shop
-                </th>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 20,
-                  }}
-                >
-                  Địa Chỉ
-                </th>
-                
                 <th
                   style={{
                     ...thStyle,
@@ -207,12 +192,57 @@ function App() {
                     zIndex: 20,
                   }}
                 >
+                  Tên Shop
+                </th>
+                
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 20,
+                  }}
+                >
+                  Địa Chỉ
+                </th>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 20,
+                  }}
+                >
                   Facebook
                 </th>
               </tr>
 
               {/* FILTER ROW */}
               <tr>
+                <th
+                  style={{
+                    ...thStyle,
+                    position: "sticky",
+                    top: 42,
+                    zIndex: 19,
+                    background: "rgb(13, 110, 253)",
+                  }}
+                >
+                  <select
+                    value={filters.city}
+                    onChange={(e) =>
+                      setFilters({ ...filters, city: e.target.value })
+                    }
+                    style={inputStyle}
+                  >
+                    <option value="">Tất cả</option>
+                    {uniqueCities.map((city, i) => (
+                      <option key={i} value={city}>
+                        {city}
+                      </option>
+                    ))}
+                  </select>
+                </th>
                 <th
                   style={{
                     ...thStyle,
@@ -251,34 +281,7 @@ function App() {
                     style={inputStyle}
                   />
                 </th>
-
-                
-        
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 42,
-                    zIndex: 19,
-                    background: "rgb(13, 110, 253)",
-                  }}
-                >
-                  <select
-                    value={filters.city}
-                    onChange={(e) =>
-                      setFilters({ ...filters, city: e.target.value })
-                    }
-                    style={inputStyle}
-                  >
-                    <option value="">Tất cả</option>
-                    {uniqueCities.map((city, i) => (
-                      <option key={i} value={city}>
-                        {city}
-                      </option>
-                    ))}
-                  </select>
-                </th>
-
+                               
                 <th
                   style={{
                     ...thStyle,
@@ -304,9 +307,20 @@ function App() {
             <tbody>
               {filteredShops.map((shop, i) => (
                 <tr key={i}>
-                  <td style={tdStyle}>{shop["Tên Shop"]}</td>
-                  <td style={tdStyle}>{shop["Địa Chỉ"]}</td>
                   <td style={tdStyle}>{shop["Tỉnh Thành"]}</td>
+
+                  <td
+                    style={{
+                      ...tdStyle,
+                      textAlign: "center",
+                      verticalAlign: "middle",
+                    }}
+                  >
+                    {shop["Tên Shop"]}
+                  </td>
+
+                  <td style={tdStyle}>{shop["Địa Chỉ"]}</td>
+
                   <td style={tdStyle}>
                     <a
                       href={shop["link Facebook"]}
