@@ -1,6 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 @keyframes flyAround {
   0% {
@@ -21,5 +22,124 @@
 
   100% {
     transform: translate(0, 0) rotate(0deg);
+  }
+}
+.glow-button {
+  transition: all 0.3s ease;
+}
+
+.glow-button:hover {
+  transform: scale(1.08);
+  box-shadow:
+    0 0 15px #ffd700,
+    0 0 30px #ffd700,
+    0 0 60px #ffd700;
+}
+@keyframes pulseGlow {
+  0% {
+    box-shadow:
+      0 0 10px #ffd700,
+      0 0 20px #ffd700;
+  }
+
+  50% {
+    box-shadow:
+      0 0 20px #ffd700,
+      0 0 40px #ffd700,
+      0 0 80px #ffd700;
+  }
+
+  100% {
+    box-shadow:
+      0 0 10px #ffd700,
+      0 0 20px #ffd700;
+  }
+}
+
+.glow-button {
+  animation: pulseGlow 2s infinite;
+}
+.glow-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-button::before {
+  content: "";
+
+  position: absolute;
+
+  top: -100%;
+  left: -150%;
+
+  width: 80px;
+  height: 300%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0.15) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  transform: rotate(25deg);
+
+  filter: blur(8px);
+
+  animation: softShine 4s ease-in-out infinite;
+}
+@keyframes softShine {
+  0% {
+    left: -150%;
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  50% {
+    left: 250%;
+    opacity: 1;
+  }
+
+  100% {
+    left: 250%;
+    opacity: 0;
+  }
+}
+.glow-button::after {
+  content: "";
+
+  position: absolute;
+
+  top: -100%;
+  left: -200%;
+
+  width: 120px;
+  height: 300%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+
+  transform: rotate(-20deg);
+
+  filter: blur(15px);
+
+  animation: softShine2 6s linear infinite;
+}
+@keyframes softShine2 {
+  0% {
+    left: -200%;
+  }
+
+  100% {
+    left: 300%;
   }
 }

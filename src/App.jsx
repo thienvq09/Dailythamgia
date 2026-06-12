@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import bg2 from "./assets/nen-moi.jpg.png";
-
+import bgTrang1 from "./assets/banner-trang1.jpg";
+import "./App.css";
 
 const SHEET_ID = "1-cLAxym0HtBYNT9RkwJW6vuDbLGfVjU2QhWhGIDcJqA";
 const SHEET_NAME = "Data 1";
@@ -16,7 +17,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(SHEET_NAME)}`
+      `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(SHEET_NAME)}`,
     )
       .then((res) => res.json())
       .then((data) => setShops(data))
@@ -41,7 +42,6 @@ function App() {
       (shop["Địa Chỉ"] || "")
         .toLowerCase()
         .includes(filters.address.toLowerCase()) &&
-      
       (filters.city === "" || shop["Tỉnh Thành"] === filters.city) &&
       (shop["Link Facebook"] || "")
         .toLowerCase()
@@ -62,49 +62,59 @@ function App() {
       {/* TRANG 1 */}
       <section
         style={{
-          width: "100%",
+          width: "100vw",
           height: "100vh",
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1920&q=80')",
-          backgroundSize: "cover",
+          backgroundImage: `url(${bgTrang1})`,
+          backgroundSize: "100% 100%",
           backgroundPosition: "center",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          backgroundRepeat: "no-repeat",
           position: "relative",
-        }} 
+        }}
       >
         <div
           style={{
             position: "absolute",
-            inset: 0,
-            background: "rgba(0,0,0,0.45)",
-          }}
-        />
-
-        <div
-          style={{
-            position: "relative",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
             zIndex: 2,
             textAlign: "center",
             color: "white",
           }}
         >
-          <h1 style={{ fontSize: "72px", marginBottom: "24px" }}>
-            Hệ Thống Cửa Hàng
-          </h1>
-
           <button
+            className="glow-button"
             onClick={scrollToList}
             style={{
-              padding: "16px 32px",
-              fontSize: "18px",
-              borderRadius: "10px",
-              border: "none",
+              position: "absolute",
+
+              bottom: "-450px",
+              right: "-663px",
+
+              padding: "18px 40px",
+
+              minWidth: "320px",
+
+              fontSize: "32px",
+              fontWeight: "800",
+
+              whiteSpace: "nowrap",
+
+              color: "#fff",
+
+              background: "linear-gradient(180deg, #FFA500 0%, #FF8C00 100%)",
+
+              border: "4px solid #FFD700",
+              borderRadius: "50px",
+
               cursor: "pointer",
+
+              boxShadow: "0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.8)",
+
+              zIndex: 10,
             }}
           >
-            Xem danh sách
+            XEM DANH SÁCH
           </button>
         </div>
       </section>
@@ -114,7 +124,7 @@ function App() {
         id="shop-list"
         style={{
           height: "110vh",
-          padding: "30px",
+          padding: "40px",
           backgroundImage: `url(${bg2})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -127,7 +137,7 @@ function App() {
             textAlign: "left",
             fontSize: "50px",
             fontWeight: "900",
-            
+
             color: "#ffffff",
             textTransform: "uppercase",
             letterSpacing: "1px",
@@ -195,7 +205,7 @@ function App() {
                 >
                   Tên Shop
                 </th>
-                
+
                 <th
                   style={{
                     ...thStyle,
@@ -282,7 +292,7 @@ function App() {
                     style={inputStyle}
                   />
                 </th>
-                               
+
                 <th
                   style={{
                     ...thStyle,
