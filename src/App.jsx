@@ -43,7 +43,7 @@ function App() {
         .includes(filters.address.toLowerCase()) &&
       
       (filters.city === "" || shop["Tỉnh Thành"] === filters.city) &&
-      (shop["link Facebook"] || "")
+      (shop["Link Facebook"] || "")
         .toLowerCase()
         .includes(filters.facebook.toLowerCase())
     );
@@ -324,7 +324,7 @@ function App() {
 
                   <td style={tdStyle}>
                     <a
-                      href={shop["link Facebook"]}
+                      href={shop["Link Facebook"]}
                       target="_blank"
                       rel="noreferrer"
                       style={{
