@@ -3,8 +3,8 @@ import bg2 from "./assets/nen-moi.jpg.png";
 import bgTrang1 from "./assets/banner-trang1.jpg";
 import "./App.css";
 
-const SHEET_ID = "1-cLAxym0HtBYNT9RkwJW6vuDbLGfVjU2QhWhGIDcJqA";
-const SHEET_NAME = "Data 1";
+const SHEET_ID = import.meta.env.VITE_SHEET_ID;
+const SHEET_NAME = import.meta.env.VITE_SHEET_NAME;
 
 function App() {
   const [shops, setShops] = useState([]);
@@ -20,8 +20,14 @@ function App() {
       `https://opensheet.elk.sh/${SHEET_ID}/${encodeURIComponent(SHEET_NAME)}`,
     )
       .then((res) => res.json())
-      .then((data) => setShops(data))
-      .catch((err) => console.error(err));
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setShops(data);
+        } else {
+          console.error("Failed to load sheet data. Expected array but got:", data);
+        }
+      })
+      .catch((err) => console.error("Error fetching shops:", err));
   }, []);
 
   const scrollToList = () => {
@@ -62,57 +68,29 @@ function App() {
       {/* TRANG 1 */}
       <section
         style={{
-          width: "100vw",
-          height: "100vh",
-          backgroundImage: `url(${bgTrang1})`,
-          backgroundSize: "100% 100%",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
+          width: "100%",
           position: "relative",
+          display: "flex",
         }}
       >
+        <img 
+          src={bgTrang1} 
+          alt="Banner" 
+          style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }} 
+        />
         <div
           style={{
             position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
             zIndex: 2,
-            textAlign: "center",
-            color: "white",
           }}
         >
           <button
-            className="glow-button"
+            className="glow-button hero-btn"
             onClick={scrollToList}
-            style={{
-              position: "absolute",
-
-              bottom: "-450px",
-              right: "-663px",
-
-              padding: "18px 40px",
-
-              minWidth: "320px",
-
-              fontSize: "32px",
-              fontWeight: "800",
-
-              whiteSpace: "nowrap",
-
-              color: "#fff",
-
-              background: "linear-gradient(180deg, #FFA500 0%, #FF8C00 100%)",
-
-              border: "4px solid #FFD700",
-              borderRadius: "50px",
-
-              cursor: "pointer",
-
-              boxShadow: "0 0 15px #FFD700, 0 0 30px rgba(255,215,0,0.8)",
-
-              zIndex: 10,
-            }}
           >
             XEM DANH SÁCH
           </button>
@@ -132,43 +110,11 @@ function App() {
           overflow: "hidden",
         }}
       >
-        <h2
-          style={{
-            textAlign: "left",
-            fontSize: "50px",
-            fontWeight: "900",
-
-            color: "#ffffff",
-            textTransform: "uppercase",
-            letterSpacing: "1px",
-            marginTop: "90px",
-            marginBottom: "40px",
-
-            textShadow: `
-              0 0 2px #0d47a1,
-              2px 2px 0 #0d47a1,
-              -2px 2px 0 #0d47a1,
-              2px -2px 0 #0d47a1,
-              -2px -2px 0 #0d47a1,
-              8px 8px 10px rgba(0,0,0,0.4)
-            `,
-          }}
-        >
+        <h2 className="section-2-title">
           DANH SÁCH ĐẠI SỨ CHIẾN DỊCH TRÊN TOÀN QUỐC
         </h2>
 
-        <div
-          style={{
-            overflow: "auto",
-            maxHeight: "70vh",
-            background: "rgba(255,255,255,0.85)",
-            borderRadius: "20px",
-            border: "6px solid #66b3ff",
-            boxShadow: "0 0 20px rgba(0,0,0,0.15)",
-
-            transform: "translateY(60px)",
-          }}
-        >
+        <div className="table-wrapper">
           <table
             style={{
               width: "100%",
@@ -185,66 +131,30 @@ function App() {
             </colgroup>
             <thead>
               <tr>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 20,
-                  }}
-                >
+                <th className="table-th table-th-sticky">
                   Tỉnh Thành
                 </th>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 20,
-                  }}
-                >
+                <th className="table-th table-th-sticky">
                   Tên Shop
                 </th>
 
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 20,
-                  }}
-                >
+                <th className="table-th table-th-sticky">
                   Địa Chỉ
                 </th>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 20,
-                  }}
-                >
+                <th className="table-th table-th-sticky">
                   Facebook
                 </th>
               </tr>
 
               {/* FILTER ROW */}
               <tr>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 42,
-                    zIndex: 19,
-                    background: "rgb(13, 110, 253)",
-                  }}
-                >
+                <th className="table-th table-th-filter">
                   <select
                     value={filters.city}
                     onChange={(e) =>
                       setFilters({ ...filters, city: e.target.value })
                     }
-                    style={inputStyle}
+                    className="table-input"
                   >
                     <option value="">Tất cả</option>
                     {uniqueCities.map((city, i) => (
@@ -254,15 +164,7 @@ function App() {
                     ))}
                   </select>
                 </th>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 42,
-                    zIndex: 19,
-                    background: "rgb(13, 110, 253)",
-                  }}
-                >
+                <th className="table-th table-th-filter">
                   <input
                     type="text"
                     placeholder="Lọc tên shop"
@@ -270,18 +172,10 @@ function App() {
                     onChange={(e) =>
                       setFilters({ ...filters, name: e.target.value })
                     }
-                    style={inputStyle}
+                    className="table-input"
                   />
                 </th>
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 42,
-                    zIndex: 19,
-                    background: "rgb(13, 110, 253)",
-                  }}
-                >
+                <th className="table-th table-th-filter">
                   <input
                     type="text"
                     placeholder="Lọc địa chỉ"
@@ -289,19 +183,11 @@ function App() {
                     onChange={(e) =>
                       setFilters({ ...filters, address: e.target.value })
                     }
-                    style={inputStyle}
+                    className="table-input"
                   />
                 </th>
 
-                <th
-                  style={{
-                    ...thStyle,
-                    position: "sticky",
-                    top: 42,
-                    zIndex: 19,
-                    background: "rgb(13, 110, 253)",
-                  }}
-                >
+                <th className="table-th table-th-filter">
                   <input
                     type="text"
                     placeholder="Lọc Facebook"
@@ -309,7 +195,7 @@ function App() {
                     onChange={(e) =>
                       setFilters({ ...filters, facebook: e.target.value })
                     }
-                    style={inputStyle}
+                    className="table-input"
                   />
                 </th>
               </tr>
@@ -318,21 +204,15 @@ function App() {
             <tbody>
               {filteredShops.map((shop, i) => (
                 <tr key={i}>
-                  <td style={tdStyle}>{shop["Tỉnh Thành"]}</td>
+                  <td className="table-td">{shop["Tỉnh Thành"]}</td>
 
-                  <td
-                    style={{
-                      ...tdStyle,
-                      textAlign: "center",
-                      verticalAlign: "middle",
-                    }}
-                  >
+                  <td className="table-td table-td-center">
                     {shop["Tên Shop"]}
                   </td>
 
-                  <td style={tdStyle}>{shop["Địa Chỉ"]}</td>
+                  <td className="table-td">{shop["Địa Chỉ"]}</td>
 
-                  <td style={tdStyle}>
+                  <td className="table-td">
                     <a
                       href={shop["Link Facebook"]}
                       target="_blank"
@@ -354,32 +234,5 @@ function App() {
     </div>
   );
 }
-
-const thStyle = {
-  padding: "14px",
-  border: "1px solid #fdfdfd",
-  background: "#0d6efd",
-  color: "white",
-  fontWeight: "700",
-  fontSize: "20px",
-};
-
-const tdStyle = {
-  padding: "16px",
-  border: "1px solid #d9e8f7",
-  background: "rgba(255,255,255,0.92)",
-  color: "#222",
-  fontSize: "20px",
-  fontWeight: "600",
-};
-
-const inputStyle = {
-  width: "100%",
-  padding: "10px",
-  borderRadius: "6px",
-  border: "1px solid #c8dff5",
-  background: "#ffffff",
-  color: "#333",
-};
 
 export default App;
