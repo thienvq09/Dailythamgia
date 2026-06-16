@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import bg2 from "./assets/nen-moi.jpg.png";
 import bgTrang1 from "./assets/banner-trang1.jpg";
+import bgTrang2 from "./assets/banner-trang2.jpg";
 import "./App.css";
 
 const SHEET_ID = import.meta.env.VITE_SHEET_ID;
@@ -98,6 +99,21 @@ function App() {
       </section>
 
       {/* TRANG 2 */}
+      <section
+        style={{
+          width: "100%",
+          position: "relative",
+          display: "flex",
+        }}
+      >
+        <img 
+          src={bgTrang2} 
+          alt="Banner 2" 
+          style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }} 
+        />
+      </section>
+
+      {/* TRANG 3 */}
       <section
         id="shop-list"
         style={{
