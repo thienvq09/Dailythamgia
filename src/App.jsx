@@ -7,6 +7,13 @@ import "./App.css";
 const SHEET_ID = import.meta.env.VITE_SHEET_ID;
 const SHEET_NAME = import.meta.env.VITE_SHEET_NAME;
 
+const HIGHLIGHTED_SHOPS = [
+  "Phòng Khám Nhi Ánh Dương",
+  "Anny Shoppu",
+  "CÔNG TY TNHH HAVICO MED",
+  "Shop Khang Baby",
+];
+
 function App() {
   const [shops, setShops] = useState([]);
   const [filters, setFilters] = useState({
@@ -218,31 +225,59 @@ function App() {
             </thead>
 
             <tbody>
-              {filteredShops.map((shop, i) => (
-                <tr key={i}>
-                  <td className="table-td">{shop["Tỉnh Thành"]}</td>
+              {filteredShops.map((shop, i) => {
+                const isHighlightedRow = String(shop["Condition"] ?? shop["Điều kiện"]) === "1";
+                const rowStyle = isHighlightedRow
+                  ? {
+                      backgroundColor: "#ffd700",
+                      color: "#111",
+                    }
+                  : undefined;
 
-                  <td className="table-td table-td-center">
-                    {shop["Tên Shop"]}
-                  </td>
+                return (
+                  <tr key={i}>
+                    <td className="table-td" style={rowStyle}>
+                      {shop["Tỉnh Thành"]}
+                    </td>
 
-                  <td className="table-td">{shop["Địa Chỉ"]}</td>
-
-                  <td className="table-td">
-                    <a
-                      href={shop["Link Facebook"]}
-                      target="_blank"
-                      rel="noreferrer"
+                    <td
+                      className="table-td table-td-center"
                       style={{
-                        color: "#0d6efd",
-                        fontWeight: "500",
+                        backgroundColor: isHighlightedRow
+                          ? "#ffd700"
+                          : HIGHLIGHTED_SHOPS.includes(shop["Tên Shop"])
+                          ? "#ffd700"
+                          : undefined,
+                        color: isHighlightedRow
+                          ? "#111"
+                          : HIGHLIGHTED_SHOPS.includes(shop["Tên Shop"])
+                          ? "#111"
+                          : undefined,
                       }}
                     >
-                      Facebook
-                    </a>
-                  </td>
-                </tr>
-              ))}
+                      {shop["Tên Shop"]}
+                    </td>
+
+                    <td className="table-td" style={rowStyle}>
+                      {shop["Địa Chỉ"]}
+                    </td>
+
+                    <td className="table-td" style={rowStyle}>
+                      <a
+                        href={shop["Link Facebook"]}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          color: isHighlightedRow ? "#0056b3" : "#0d6efd",
+                          fontWeight: "500",
+                        }}
+                      >
+                        Facebook
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
